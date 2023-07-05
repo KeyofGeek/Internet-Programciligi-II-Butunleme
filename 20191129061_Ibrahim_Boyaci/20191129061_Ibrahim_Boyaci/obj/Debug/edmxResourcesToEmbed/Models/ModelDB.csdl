@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="mesajDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Grup_Kayit">
+    <Key>
+      <PropertyRef Name="kayitId" />
+    </Key>
+    <Property Name="kayitId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="kayGrupId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="kayUyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Gruplar" Relationship="Self.FK_Grup_Kayit_ToKayGrup" FromRole="Grup_Kayit" ToRole="Gruplar" />
+    <NavigationProperty Name="Uyeler" Relationship="Self.FK_Grup_Kayit_ToKayUye" FromRole="Grup_Kayit" ToRole="Uyeler" />
+  </EntityType>
+  <EntityType Name="Grup_Mesaj">
+    <Key>
+      <PropertyRef Name="gmMesajId" />
+    </Key>
+    <Property Name="gmMesajId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gmGrupId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gmUyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gmMesaj" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Gruplar" Relationship="Self.FK_Grup_Mesaj_TogmGrup" FromRole="Grup_Mesaj" ToRole="Gruplar" />
+    <NavigationProperty Name="Uyeler" Relationship="Self.FK_Grup_Mesaj_TogmUye" FromRole="Grup_Mesaj" ToRole="Uyeler" />
+  </EntityType>
+  <EntityType Name="Gruplar">
+    <Key>
+      <PropertyRef Name="grupId" />
+    </Key>
+    <Property Name="grupId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="grupAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Grup_Kayit" Relationship="Self.FK_Grup_Kayit_ToKayGrup" FromRole="Gruplar" ToRole="Grup_Kayit" />
+    <NavigationProperty Name="Grup_Mesaj" Relationship="Self.FK_Grup_Mesaj_TogmGrup" FromRole="Gruplar" ToRole="Grup_Mesaj" />
+  </EntityType>
+  <EntityType Name="Mesajlar">
+    <Key>
+      <PropertyRef Name="mesajId" />
+    </Key>
+    <Property Name="mesajId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gonderenId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="aliciId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="mesaj" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Uyeler" Relationship="Self.FK_Table_ToAlici" FromRole="Mesajlar" ToRole="Uyeler" />
+    <NavigationProperty Name="Uyeler1" Relationship="Self.FK_Table_ToGonderen" FromRole="Mesajlar" ToRole="Uyeler" />
+  </EntityType>
+  <EntityType Name="Toplu">
+    <Key>
+      <PropertyRef Name="tMesajId" />
+    </Key>
+    <Property Name="tMesajId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tGonderenId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tAlicilarId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tMesaj" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Uyeler" Relationship="Self.FK_Toplu_ToTAlici" FromRole="Toplu" ToRole="Uyeler" />
+    <NavigationProperty Name="Uyeler1" Relationship="Self.FK_Toplu_ToTGonder" FromRole="Toplu" ToRole="Uyeler" />
+  </EntityType>
+  <EntityType Name="Uyeler">
+    <Key>
+      <PropertyRef Name="uyeId" />
+    </Key>
+    <Property Name="uyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="uyeAdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="uyeEPosta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="uyeSifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Grup_Kayit" Relationship="Self.FK_Grup_Kayit_ToKayUye" FromRole="Uyeler" ToRole="Grup_Kayit" />
+    <NavigationProperty Name="Grup_Mesaj" Relationship="Self.FK_Grup_Mesaj_TogmUye" FromRole="Uyeler" ToRole="Grup_Mesaj" />
+    <NavigationProperty Name="Mesajlar" Relationship="Self.FK_Table_ToAlici" FromRole="Uyeler" ToRole="Mesajlar" />
+    <NavigationProperty Name="Mesajlar1" Relationship="Self.FK_Table_ToGonderen" FromRole="Uyeler" ToRole="Mesajlar" />
+    <NavigationProperty Name="Toplu" Relationship="Self.FK_Toplu_ToTAlici" FromRole="Uyeler" ToRole="Toplu" />
+    <NavigationProperty Name="Toplu1" Relationship="Self.FK_Toplu_ToTGonder" FromRole="Uyeler" ToRole="Toplu" />
+  </EntityType>
+  <Association Name="FK_Grup_Kayit_ToKayGrup">
+    <End Role="Gruplar" Type="Self.Gruplar" Multiplicity="1" />
+    <End Role="Grup_Kayit" Type="Self.Grup_Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gruplar">
+        <PropertyRef Name="grupId" />
+      </Principal>
+      <Dependent Role="Grup_Kayit">
+        <PropertyRef Name="kayGrupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Grup_Kayit_ToKayUye">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Grup_Kayit" Type="Self.Grup_Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Grup_Kayit">
+        <PropertyRef Name="kayUyeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Grup_Mesaj_TogmGrup">
+    <End Role="Gruplar" Type="Self.Gruplar" Multiplicity="1" />
+    <End Role="Grup_Mesaj" Type="Self.Grup_Mesaj" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gruplar">
+        <PropertyRef Name="grupId" />
+      </Principal>
+      <Dependent Role="Grup_Mesaj">
+        <PropertyRef Name="gmGrupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Grup_Mesaj_TogmUye">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Grup_Mesaj" Type="Self.Grup_Mesaj" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Grup_Mesaj">
+        <PropertyRef Name="gmUyeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToAlici">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Mesajlar" Type="Self.Mesajlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Mesajlar">
+        <PropertyRef Name="aliciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToGonderen">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Mesajlar" Type="Self.Mesajlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Mesajlar">
+        <PropertyRef Name="gonderenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Toplu_ToTAlici">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Toplu" Type="Self.Toplu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Toplu">
+        <PropertyRef Name="tAlicilarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Toplu_ToTGonder">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Toplu" Type="Self.Toplu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Toplu">
+        <PropertyRef Name="tGonderenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="mesajDBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Grup_Kayit" EntityType="Self.Grup_Kayit" />
+    <EntitySet Name="Grup_Mesaj" EntityType="Self.Grup_Mesaj" />
+    <EntitySet Name="Gruplar" EntityType="Self.Gruplar" />
+    <EntitySet Name="Mesajlar" EntityType="Self.Mesajlar" />
+    <EntitySet Name="Toplu" EntityType="Self.Toplu" />
+    <EntitySet Name="Uyeler" EntityType="Self.Uyeler" />
+    <AssociationSet Name="FK_Grup_Kayit_ToKayGrup" Association="Self.FK_Grup_Kayit_ToKayGrup">
+      <End Role="Gruplar" EntitySet="Gruplar" />
+      <End Role="Grup_Kayit" EntitySet="Grup_Kayit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grup_Kayit_ToKayUye" Association="Self.FK_Grup_Kayit_ToKayUye">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Grup_Kayit" EntitySet="Grup_Kayit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grup_Mesaj_TogmGrup" Association="Self.FK_Grup_Mesaj_TogmGrup">
+      <End Role="Gruplar" EntitySet="Gruplar" />
+      <End Role="Grup_Mesaj" EntitySet="Grup_Mesaj" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grup_Mesaj_TogmUye" Association="Self.FK_Grup_Mesaj_TogmUye">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Grup_Mesaj" EntitySet="Grup_Mesaj" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToAlici" Association="Self.FK_Table_ToAlici">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Mesajlar" EntitySet="Mesajlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToGonderen" Association="Self.FK_Table_ToGonderen">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Mesajlar" EntitySet="Mesajlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Toplu_ToTAlici" Association="Self.FK_Toplu_ToTAlici">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Toplu" EntitySet="Toplu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Toplu_ToTGonder" Association="Self.FK_Toplu_ToTGonder">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Toplu" EntitySet="Toplu" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

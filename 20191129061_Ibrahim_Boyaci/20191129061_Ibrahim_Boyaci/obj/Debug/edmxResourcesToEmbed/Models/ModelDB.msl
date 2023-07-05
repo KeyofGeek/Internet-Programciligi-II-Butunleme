@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="mesajDBModelStoreContainer" CdmEntityContainer="mesajDBEntities1">
+    <EntitySetMapping Name="Grup_Kayit">
+      <EntityTypeMapping TypeName="mesajDBModel.Grup_Kayit">
+        <MappingFragment StoreEntitySet="Grup_Kayit">
+          <ScalarProperty Name="kayitId" ColumnName="kayitId" />
+          <ScalarProperty Name="kayGrupId" ColumnName="kayGrupId" />
+          <ScalarProperty Name="kayUyeId" ColumnName="kayUyeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grup_Mesaj">
+      <EntityTypeMapping TypeName="mesajDBModel.Grup_Mesaj">
+        <MappingFragment StoreEntitySet="Grup_Mesaj">
+          <ScalarProperty Name="gmMesajId" ColumnName="gmMesajId" />
+          <ScalarProperty Name="gmGrupId" ColumnName="gmGrupId" />
+          <ScalarProperty Name="gmUyeId" ColumnName="gmUyeId" />
+          <ScalarProperty Name="gmMesaj" ColumnName="gmMesaj" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Gruplar">
+      <EntityTypeMapping TypeName="mesajDBModel.Gruplar">
+        <MappingFragment StoreEntitySet="Gruplar">
+          <ScalarProperty Name="grupId" ColumnName="grupId" />
+          <ScalarProperty Name="grupAdi" ColumnName="grupAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mesajlar">
+      <EntityTypeMapping TypeName="mesajDBModel.Mesajlar">
+        <MappingFragment StoreEntitySet="Mesajlar">
+          <ScalarProperty Name="mesajId" ColumnName="mesajId" />
+          <ScalarProperty Name="gonderenId" ColumnName="gonderenId" />
+          <ScalarProperty Name="aliciId" ColumnName="aliciId" />
+          <ScalarProperty Name="mesaj" ColumnName="mesaj" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Toplu">
+      <EntityTypeMapping TypeName="mesajDBModel.Toplu">
+        <MappingFragment StoreEntitySet="Toplu">
+          <ScalarProperty Name="tMesajId" ColumnName="tMesajId" />
+          <ScalarProperty Name="tGonderenId" ColumnName="tGonderenId" />
+          <ScalarProperty Name="tAlicilarId" ColumnName="tAlicilarId" />
+          <ScalarProperty Name="tMesaj" ColumnName="tMesaj" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Uyeler">
+      <EntityTypeMapping TypeName="mesajDBModel.Uyeler">
+        <MappingFragment StoreEntitySet="Uyeler">
+          <ScalarProperty Name="uyeId" ColumnName="uyeId" />
+          <ScalarProperty Name="uyeAdSoyad" ColumnName="uyeAdSoyad" />
+          <ScalarProperty Name="uyeEPosta" ColumnName="uyeEPosta" />
+          <ScalarProperty Name="uyeSifre" ColumnName="uyeSifre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

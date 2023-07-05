@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="mesajDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Grup_Kayit">
+    <Key>
+      <PropertyRef Name="kayitId" />
+    </Key>
+    <Property Name="kayitId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="kayGrupId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="kayUyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Grup_Mesaj">
+    <Key>
+      <PropertyRef Name="gmMesajId" />
+    </Key>
+    <Property Name="gmMesajId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="gmGrupId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="gmUyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="gmMesaj" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Gruplar">
+    <Key>
+      <PropertyRef Name="grupId" />
+    </Key>
+    <Property Name="grupId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="grupAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mesajlar">
+    <Key>
+      <PropertyRef Name="mesajId" />
+    </Key>
+    <Property Name="mesajId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="gonderenId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="aliciId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="mesaj" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Toplu">
+    <Key>
+      <PropertyRef Name="tMesajId" />
+    </Key>
+    <Property Name="tMesajId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="tGonderenId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="tAlicilarId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="tMesaj" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Uyeler">
+    <Key>
+      <PropertyRef Name="uyeId" />
+    </Key>
+    <Property Name="uyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="uyeAdSoyad" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="uyeEPosta" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="uyeSifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Grup_Kayit_ToKayGrup">
+    <End Role="Gruplar" Type="Self.Gruplar" Multiplicity="1" />
+    <End Role="Grup_Kayit" Type="Self.Grup_Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gruplar">
+        <PropertyRef Name="grupId" />
+      </Principal>
+      <Dependent Role="Grup_Kayit">
+        <PropertyRef Name="kayGrupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Grup_Kayit_ToKayUye">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Grup_Kayit" Type="Self.Grup_Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Grup_Kayit">
+        <PropertyRef Name="kayUyeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Grup_Mesaj_TogmGrup">
+    <End Role="Gruplar" Type="Self.Gruplar" Multiplicity="1" />
+    <End Role="Grup_Mesaj" Type="Self.Grup_Mesaj" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gruplar">
+        <PropertyRef Name="grupId" />
+      </Principal>
+      <Dependent Role="Grup_Mesaj">
+        <PropertyRef Name="gmGrupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Grup_Mesaj_TogmUye">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Grup_Mesaj" Type="Self.Grup_Mesaj" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Grup_Mesaj">
+        <PropertyRef Name="gmUyeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToAlici">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Mesajlar" Type="Self.Mesajlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Mesajlar">
+        <PropertyRef Name="aliciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToGonderen">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Mesajlar" Type="Self.Mesajlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Mesajlar">
+        <PropertyRef Name="gonderenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Toplu_ToTAlici">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Toplu" Type="Self.Toplu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Toplu">
+        <PropertyRef Name="tAlicilarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Toplu_ToTGonder">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Toplu" Type="Self.Toplu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Toplu">
+        <PropertyRef Name="tGonderenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="mesajDBModelStoreContainer">
+    <EntitySet Name="Grup_Kayit" EntityType="Self.Grup_Kayit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Grup_Mesaj" EntityType="Self.Grup_Mesaj" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gruplar" EntityType="Self.Gruplar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mesajlar" EntityType="Self.Mesajlar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Toplu" EntityType="Self.Toplu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Uyeler" EntityType="Self.Uyeler" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Grup_Kayit_ToKayGrup" Association="Self.FK_Grup_Kayit_ToKayGrup">
+      <End Role="Gruplar" EntitySet="Gruplar" />
+      <End Role="Grup_Kayit" EntitySet="Grup_Kayit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grup_Kayit_ToKayUye" Association="Self.FK_Grup_Kayit_ToKayUye">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Grup_Kayit" EntitySet="Grup_Kayit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grup_Mesaj_TogmGrup" Association="Self.FK_Grup_Mesaj_TogmGrup">
+      <End Role="Gruplar" EntitySet="Gruplar" />
+      <End Role="Grup_Mesaj" EntitySet="Grup_Mesaj" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grup_Mesaj_TogmUye" Association="Self.FK_Grup_Mesaj_TogmUye">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Grup_Mesaj" EntitySet="Grup_Mesaj" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToAlici" Association="Self.FK_Table_ToAlici">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Mesajlar" EntitySet="Mesajlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToGonderen" Association="Self.FK_Table_ToGonderen">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Mesajlar" EntitySet="Mesajlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Toplu_ToTAlici" Association="Self.FK_Toplu_ToTAlici">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Toplu" EntitySet="Toplu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Toplu_ToTGonder" Association="Self.FK_Toplu_ToTGonder">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Toplu" EntitySet="Toplu" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
